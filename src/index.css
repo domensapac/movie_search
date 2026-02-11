@@ -13,3 +13,8 @@ body, html, #root {
   background-color: #242424;
   color:white; 
 }
+
+html, body{
+  max-width: 100%;
+  overflow-x: hidden;
+}
