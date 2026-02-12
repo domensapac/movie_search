@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import DropdownItem from './DropdownItem';
 
 function GenresDropdown(){
+    const genres = ["Horror", "Crime", "Romance", "Documentary", "Thriller", "Comedy"]; 
+
     return(
     <div className="relative group">
         <h1 className="group-hover:font-semibold hover:font-semibold cursor-pointer">GENRES</h1>
@@ -8,16 +11,9 @@ function GenresDropdown(){
                       opacity-0 invisible group-hover:opacity-100 group-hover:visible 
                       transition-all duration-300 z-50">
             <div className="grid grid-cols-2 gap-2 px-2 py-2">
-                <div className="col-span-1">
-                    <Link to="/genres/horror"><div>Horror</div></Link>
-                    <Link to="/genres/crime"><div>Crime</div></Link>
-                    <Link to="/genres/romance"><div>Romance</div></Link>
-                </div>
-                <div className="col-span-1">
-                    <Link to="/genres/comedy"><div>Comedy</div></Link>
-                    <Link to="/genres/thriller"><div>Thriller</div></Link>
-                    <Link to="/genres/documentary"><div>Documentary</div></Link>
-                </div>
+                    {genres.map((genre, index) => (
+                        <Link key={index} to={`genres/${genre.toLowerCase()}`}> <DropdownItem genre={genre}></DropdownItem></Link>
+                    ))}
             </div>
         </div>
     </div>
