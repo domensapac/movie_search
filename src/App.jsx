@@ -5,25 +5,30 @@ import Footer from './components/Footer';
 import Home from './pages/Home.jsx'; 
 import MovieDetails from './pages/MovieDetails.jsx'; 
 import ScrollToTop from './components/ScrollToTop.jsx';
+import Login from './pages/Login.jsx'; 
+
 function App() {
   
   return(
   <BrowserRouter>
-    <div className="flex flex-col min-h-[120vh]">
-      <ScrollToTop/>
-      <Navbar/>
-    <main className="flex-grow">
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/top" element={<Home/>}/>
-        <Route path="/genres/:genreName" element={<Home/>}/>
-        <Route path="/movie/:movieName" element={<MovieDetails/>}/>
-      </Routes>
-    </main>
-    <div>
-      <Footer/>
-    </div>
-    </div>
+  <ScrollToTop />
+  <Routes>
+    <Route path="/login" element={<Login />} />
+    <Route path="*" element={
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/top" element={<Home />} />
+            <Route path="/genres/:genreName" element={<Home />} />
+            <Route path="/movie/:movieName" element={<MovieDetails />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    } />
+  </Routes>
   </BrowserRouter>
   )
 }
