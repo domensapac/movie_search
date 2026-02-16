@@ -5,6 +5,7 @@ import Pagination from '../components/Pagination';
 import Spinner from '../components/Spinner';
 import ViewSelector from '../components/ViewSelector';
 import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function Home(){
   const [currPage, setCurrPage] = useState(1); 
@@ -12,6 +13,9 @@ function Home(){
   const [loading, setLoading] = useState(false); 
   const [searchQuery, setSearchQuery] = useState(""); 
   const [viewMode, setViewMode] = useState('grid'); 
+  const {genreName} = useParams(); 
+
+  console.log(genreName); 
   const options = {
   method: 'GET',
   headers: {
@@ -19,7 +23,24 @@ function Home(){
     Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`
   }};
 
+  const genreIds = {
+    action: 28,
+    comedy: 35,
+    horror: 27,
+    crime: 80,
+    romance: 10749,
+    thriller: 53,
+    documentary: 99,
+    mystery: 9648,
+    adventure: 12,
+    drama: 18 
+};
+
   const location = useLocation();
+  useEffect(()=> {
+    setCurrPage(1); 
+  }, [location.pathname]); 
+
   useEffect(() => {
     const fetchData = () => {
       setLoading(true);
@@ -30,6 +51,10 @@ function Home(){
       }
       else if(location.pathname === '/top'){
         endpoint = `/movie/top_rated?language=en-US&page=${currPage}`; 
+      }
+      else if(genreName){
+        const id= genreIds[genreName.toLowerCase()]; 
+        endpoint = `/discover/movie?with_genres=${id}&page=${currPage}`;
       }
       else{
         endpoint= `/movie/popular?language=en-US&page=${currPage}`;
@@ -65,10 +90,10 @@ return (
 <div className="mt-5 min-h-screen w-full align-center">
     <div className="grid grid-cols-6 gap-4">
       <div className="col-span-1">
-          {location.pathname === '/' ? (<SearchBar
-          setSearchQuery={setSearchQuery}/>) : (<></>)}
+          <SearchBar
+          setSearchQuery={setSearchQuery}/>
       </div>
-      <div className= {`mt-7 justify-center items-center ${viewMode === 'grid' ? 'col-span-4 grid grid-cols-5 gap-5' : 'col-span-4 flex flex-col gap-6'} `}> 
+      <div className= {`mt-7 justify-center  ${viewMode === 'grid' ? 'col-span-4 grid grid-cols-5 gap-5' : 'col-span-4 flex flex-col gap-6'} `}> 
         {loading ? (
           <Spinner />
         ) : (
@@ -83,6 +108,7 @@ return (
                 rating={movie.vote_average}
                 overview={movie.overview}
                 viewMode={viewMode}
+                id={movie.id}
               />
             ))}
 
