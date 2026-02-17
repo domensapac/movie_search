@@ -88,12 +88,12 @@ function Home(){
 
 return (
 <div className="mt-5 min-h-screen w-full align-center">
-    <div className="grid grid-cols-6 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-6 gap-4">
       <div className="col-span-1">
-          <SearchBar
-          setSearchQuery={setSearchQuery}/>
+          {location.pathname=== "/" ? <SearchBar
+          setSearchQuery={setSearchQuery}/> : ""}
       </div>
-      <div className= {`mt-7 justify-center  ${viewMode === 'grid' ? 'col-span-4 grid grid-cols-5 gap-5' : 'col-span-4 flex flex-col gap-6'} `}> 
+      <div className= {`mt-7 justify-center lg:col-span-4  ${viewMode === 'grid' ? ' grid grid-cols-2 lg:grid-cols-5 gap-5' : 'flex flex-col gap-6'} `}> 
         {loading ? (
           <Spinner />
         ) : (
