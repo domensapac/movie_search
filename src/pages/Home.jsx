@@ -14,8 +14,7 @@ function Home(){
   const [searchQuery, setSearchQuery] = useState(""); 
   const [viewMode, setViewMode] = useState('grid'); 
   const {genreName} = useParams(); 
-
-  console.log(genreName); 
+  const [pages, setPages] = useState(1); 
   const options = {
   method: 'GET',
   headers: {
@@ -65,6 +64,8 @@ function Home(){
         .then((data) => {
           setMovies(data.results || []);
           setLoading(false);
+          console.log(data); 
+          setPages(data.total_pages); 
         })
         .catch((err) => {
           console.error(err);

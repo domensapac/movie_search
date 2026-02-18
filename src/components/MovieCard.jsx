@@ -2,9 +2,20 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function MovieCard({title, year, poster, language, rating, overview, viewMode, id}){
+    const slugify = (text) => {
+    return text
+        .toString()
+        .toLowerCase()
+        .normalize('NFD') // Odstrani šumnike (npr. č -> c)
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, '-') // Presledke zamenja z vezaji
+        .replace(/[^\w-]+/g, '') // Odstrani vse, kar ni črka, številka ali vezaj (tukaj odstranimo /)
+        .replace(/--+/g, '-') // Prepreči dvojne vezaje
+        .trim();
+    };
     const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
     return( 
-        <Link to={`/movie/${id}-${title.replace(/\s/g, "").toLowerCase()}`}>
+        <Link to={`/movie/${id}-${slugify(title).toLowerCase()}`}>
         <div className= {`group overflow-auto ${viewMode === 'grid' ? 'flex flex-col' : ' flex flex-row w-5/6 h-60 '}`}>
             <div className={` ${viewMode === 'grid' ? 'w-full' : 'flex flex-start h-full'} flex-shrink-0 overflow-hidden aspect-[2/3] rounded-lg`}>
                 <img draggable="false" className="w-full object-cover transition-all duration-100 group-hover:brightness-60" alt="image" src={poster? `${IMAGE_BASE_URL}${poster}` : 'https://via.placeholder.com/500x750?text=Ni+slike'}></img>

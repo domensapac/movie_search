@@ -6,6 +6,7 @@ import Carousel from '../components/Carousel.jsx';
 import MovieCard from '../components/MovieCard.jsx'; 
 import ActorCard from '../components/ActorCard.jsx';
 import HorizontalLine from '../components/HorizontalLine.jsx';
+import { motion } from 'framer-motion';
 
 function MovieDetails(){
     const {movieName} = useParams(); 
@@ -96,27 +97,42 @@ function MovieDetails(){
                     <div className="mb-40">
                         <HorizontalLine/>
                     </div>
-                    <div className="m-15 "> 
-                        <Carousel movie={movie}/>
-                    </div>
-                    <div className="mt-30">
-                        <h1 className="text-4xl font-semibold">Watch also</h1>
-                    </div>
-                    <div className="w-full flex grid grid-cols-5 gap-3 mt-3 mb-2">
-
-                        {movie.similar.results.slice(0,5).map( (element, index) => (
-                            <MovieCard 
-                            key={index}
-                            title={element.title}
-                            year={element.release_date}
-                            poster={element.poster_path}
-                            language={element.original_language}
-                            rating={element.vote_average}
-                            overview={element.overview}
-                            viewMode="grid"
-                            id={element.id}/>
-                        ))}
-                    </div>
+                    <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    >
+                        <div className="m-15 "> 
+                            <Carousel movie={movie}/>
+                        </div>
+                    </motion.div>
+                    
+                    <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    >
+                        <div className="mt-30">
+                            <h1 className="text-4xl font-semibold">Watch also</h1>
+                        </div>
+                        <div className="w-full flex grid grid-cols-5 gap-3 mt-3 mb-2">
+                            {movie.similar.results.slice(0,5).map( (element, index) => (
+                                <MovieCard 
+                                key={index}
+                                title={element.title}
+                                year={element.release_date}
+                                poster={element.poster_path}
+                                language={element.original_language}
+                                rating={element.vote_average}
+                                overview={element.overview}
+                                viewMode="grid"
+                                id={element.id}/>
+                            ))}
+                        </div>
+                    </motion.div>
+                    
                 </div> 
             )}
         </div> 
