@@ -1,14 +1,24 @@
+import React, { useState } from 'react';
+import DefaultPfp from '../assets/default_pfp.jpg'; 
 
-function ActorCard({name, character, picPath}){
-    return(
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
-                <div className="flex flex-col justify-center text-center">
-                    <img className="aspect-square m-auto mb-2 object-cover w-40 h-40 min-w-[160px] min-h-[160px] rounded-tl-2xl rounded-br-2xl" src={`https://image.tmdb.org/t/p/w1280${picPath}`}></img>
-                    <span className="w-full text-center text-xl font-semibold">{name}</span>
-                    <span className="w-full text-center items-stretch h-20 text-md">"{character}"</span>
-                </div>
-            </div>
-    )
-}
+const ActorCard = ({name, character, picPath}) => {
 
-export default ActorCard; 
+  return (
+    <div className="bg-neutral-primary-soft p-6 border-1 border-white/10 rounded-2xl shadow-xl/20 hover:scale-105 transition-transform">
+      <div className="flex flex-col items-center">
+        <div className="flex aspect-square justify-center">
+        <img 
+          className="w-48 h-48 object-[center_20%] sm:h-22 sm:w-22 md:h-24 md:w-24 lg:w-25 lg:h-25 mb-4 object-cover rounded-full" 
+          src={`${picPath ? `https://image.tmdb.org/t/p/w500/${picPath}` : DefaultPfp}`} 
+          alt="actor_image" 
+          draggable="false"
+        ></img>
+        </div>
+        <h5 className="mb-0.5 text-xl text-center font-semibold tracking-tight text-heading">{name}</h5>
+        <span className="text-sm text-center text-gray-400 text-body">"{character}"</span>
+      </div>
+    </div>
+  );
+};
+
+export default ActorCard;

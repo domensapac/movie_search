@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 
-// OBVEZNO uvozi stile za pagination
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -12,8 +11,12 @@ function Carousel({movie}){
             modules={[Navigation, Pagination]}
             navigation={true}
             pagination={{
-                type: 'progressbar', // To ustvari tisto modro črto na vrhu
+                type: 'progressbar'
             }}
+            style={{
+            "--swiper-pagination-color": "#ff9900ff", // Barva progresa (npr. modra)
+            "--swiper-navigation-color": "#fff", // Če želiš spremeniti še barvo puščic
+    }}
             className="mySwiper rounded-xl overflow-hidden"
             >
             {movie.images.backdrops.slice(0,5).map((img, index) => (

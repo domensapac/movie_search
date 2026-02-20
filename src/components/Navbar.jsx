@@ -1,27 +1,50 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import GenresDropdown from './GenresDropdown';
 
-function Navbar(){
+function Navbar({isOpen, setIsOpen}){
+
+   
+
     return(
-        <div className=" top-0 navbar w-full bg-[#1c1b1b] px-6 py-2 flex items-center justify-between">
-            <div>
-                <h1>Ka je to</h1>
+        <nav className="bg-black/20 backdrop-blur-md relative w-full px-6 py-4 flex items-center justify-between z-[100]">
+            <div className="z-[110]">
+                <Link to="/"><h1 className="text-xl font-bold"> <span>Le' </span><span className="font-bold text-orange-400">Flix</span></h1></Link>
             </div>
-            <div className="absolute flex w-full items-center justify-center">
-                <div className="flex w-fit gap-8 ">
-                    <Link to="/"><h1 className="hover:font-semibold">TRENDING</h1></Link>
-                    <Link to="/top"><h1 className="hover:font-semibold">TOP TMDB</h1></Link>
-                    <GenresDropdown/>
+
+            <div className="hidden sm:flex text-sm items-center gap-8 absolute left-1/2 -translate-x-1/2">
+                <Link to="/" className={`hover:font-semibold`}>TRENDING</Link>
+                <Link to="/top" className={`hover:font-semibold`}>TOP TMDB</Link>
+                <GenresDropdown/>
+            </div>
+
+            <div className="flex items-center gap-4 z-[110]">
+                <button 
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="sm:hidden flex flex-col gap-1.5 cursor-pointer p-1"
+                >
+                    <div className={`h-0.5 w-6 bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
+                    <div className={`h-0.5 w-6 bg-white transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}></div>
+                    <div className={`h-0.5 w-6 bg-white transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
+                </button>
+            </div>
+            <div className={`fixed inset-0 bg-[#1c1b1b] flex flex-col items-center justify-center gap-10 transition-all duration-300 sm:hidden ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+                <Link to="/" onClick={() => setIsOpen(false)} className="text-2xl hover:font-bold">TRENDING</Link>
+                <Link to="/top" onClick={() => setIsOpen(false)} className="text-2xl hover:font-bold">TOP TMDB</Link>
+                <div onClick={(e) => e.stopPropagation()}>
+                    <GenresDropdown />
                 </div>
+                <Link 
+                    to="/login" 
+                    onClick={() => setIsOpen(false)} 
+                    className="flex items-center gap-3 text-2xl bg-white/5 px-8 py-4 rounded-xl border border-white/10"
+                >
+                    <span>Log in</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
+                </Link>
             </div>
-            <Link to="/login" className="group z-100"><div className="z-50 flex items-center gap-1 ">
-                <h1 className="group-hover:cursor-pointer group-hover:font-semibold">Log in</h1>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" className=" lucide stroke-[2px] group-hover:stroke-[3px] group-hover:cursor-pointer group-hover:font-semibold lucide lucide-log-in-icon lucide-log-in"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
-            </div>
-            </Link>
-        </div>
+        </nav>
     ); 
 }
 
-export default Navbar; 
+export default Navbar;

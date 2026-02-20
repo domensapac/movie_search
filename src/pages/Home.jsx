@@ -23,6 +23,7 @@ function Home(){
   }};
 
   const genreIds = {
+    animation: 16,
     action: 28,
     comedy: 35,
     horror: 27,
@@ -32,7 +33,9 @@ function Home(){
     documentary: 99,
     mystery: 9648,
     adventure: 12,
-    drama: 18 
+    drama: 18,
+    music: 10402,
+    "science-fiction": 878
 };
 
   const location = useLocation();
@@ -89,12 +92,12 @@ function Home(){
 
 return (
 <div className="mt-5 min-h-screen w-full align-center">
-    <div className="grid grid-cols-1 lg:grid-cols-6 gap-4">
-      <div className="col-span-1">
+    <div className="flex flex-col lg:grid lg:grid-cols-6 gap-4">
+      <div className="order-0 lg:order-none lg: col-span-1">
           {location.pathname=== "/" ? <SearchBar
           setSearchQuery={setSearchQuery}/> : ""}
       </div>
-      <div className= {`mt-7 justify-center lg:col-span-4  ${viewMode === 'grid' ? ' grid grid-cols-2 lg:grid-cols-5 gap-5' : 'flex flex-col gap-6'} `}> 
+      <div className= {`order-2 lg:order-none mt-7 justify-center lg:col-span-4  ${viewMode === 'grid' ? ' grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5' : 'flex flex-col gap-6 ms-4'} `}> 
         {loading ? (
           <Spinner />
         ) : (
@@ -112,18 +115,18 @@ return (
                 id={movie.id}
               />
             ))}
-
-            <div className="col-span-5 flex justify-center mt-8 mb-12">
-              <Pagination className="col-span-full flex justify-center mt-10"
+            <div className="flex col-span-full justify-center mt-8 mb-12">
+              <Pagination className="flex justify-center mt-10"
                 currPage={currPage} 
                 setCurrPage={setCurrPage} 
                 totalPages={500} 
               />
             </div>
+            
           </>
         )}
       </div>
-      <div className="col-span-1 align-center justify-center">
+      <div className="order-1 ms-4 lg:order-none lg:col-span-1 align-center justify-center">
           <ViewSelector 
           setViewMode={setViewMode}
           viewMode={viewMode}/>
