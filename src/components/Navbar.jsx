@@ -4,7 +4,7 @@ import GenresDropdown from './GenresDropdown';
 
 function Navbar({isOpen, setIsOpen}){
 
-   
+   const [isOpenGenres, setIsOpenGenres] = useState(false);
 
     return(
         <nav className="bg-black/20 backdrop-blur-md relative w-full px-6 py-4 flex items-center justify-between z-[100]">
@@ -17,7 +17,6 @@ function Navbar({isOpen, setIsOpen}){
                 <Link to="/top" className={`hover:font-semibold`}>TOP TMDB</Link>
                 <GenresDropdown/>
             </div>
-
             <div className="flex items-center gap-4 z-[110]">
                 <button 
                     onClick={() => setIsOpen(!isOpen)}
@@ -28,20 +27,15 @@ function Navbar({isOpen, setIsOpen}){
                     <div className={`h-0.5 w-6 bg-white transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
                 </button>
             </div>
-            <div className={`fixed inset-0 bg-[#1c1b1b] flex flex-col items-center justify-center gap-10 transition-all duration-300 sm:hidden ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+            <div className={`fixed inset-0 bg-[#1c1b1b] flex min-h-screen flex-col items-center justify-center gap-10 transition-all duration-300 sm:hidden ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
                 <Link to="/" onClick={() => setIsOpen(false)} className="text-2xl hover:font-bold">TRENDING</Link>
                 <Link to="/top" onClick={() => setIsOpen(false)} className="text-2xl hover:font-bold">TOP TMDB</Link>
                 <div onClick={(e) => e.stopPropagation()}>
-                    <GenresDropdown />
+                    <GenresDropdown isOpenGenres={isOpenGenres}
+                    setIsOpenGenres={setIsOpenGenres}
+                    setIsOpen={setIsOpen}
+                    onClick={()=> (setIsOpenGenres(!isOpenGenres))}/>
                 </div>
-                <Link 
-                    to="/login" 
-                    onClick={() => setIsOpen(false)} 
-                    className="flex items-center gap-3 text-2xl bg-white/5 px-8 py-4 rounded-xl border border-white/10"
-                >
-                    <span>Log in</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
-                </Link>
             </div>
         </nav>
     ); 

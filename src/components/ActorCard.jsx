@@ -8,7 +8,7 @@ const ActorCard = ({name, character, picPath}) => {
       <div className="flex flex-col items-center">
         <div className="flex aspect-square justify-center">
         <img 
-          className="w-48 h-48 object-[center_20%] sm:h-22 sm:w-22 md:h-24 md:w-24 lg:w-25 lg:h-25 mb-4 object-cover rounded-full" 
+          className="w-22 h-22 object-[center_20%] sm:h-22 sm:w-22 md:h-24 md:w-24 lg:w-25 lg:h-25 mb-4 object-cover rounded-full" 
           src={`${picPath ? `https://image.tmdb.org/t/p/w500/${picPath}` : DefaultPfp}`} 
           alt="actor_image" 
           draggable="false"

@@ -24,7 +24,7 @@ function Carousel({movie}){
                 <img 
                     src={`https://image.tmdb.org/t/p/w1280${img.file_path}`} 
                     alt="backdrop" 
-                    className="w-full h-[500px] object-cover"
+                    className="sm:w-full sm:h-[370px] object-cover"
                 />
                 </SwiperSlide>
             ))}
