@@ -7,4 +7,11 @@
 3.  Git
 4.  TMDB API
 
-[Screenshot](public/images/slika1.png)
+![Screenshot](public/images/slika1.png)
+![Screenshot](public/images/slika2.png)
+![Screenshot](public/images/slika3.png)
+![Screenshot](public/images/slika4.png)
+![Screenshot](public/images/slika5.png)
+
+
+
